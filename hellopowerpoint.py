@@ -75,7 +75,7 @@ fill_arrow1.solid()
 fill_arrow1.fore_color.theme_color = MSO_THEME_COLOR.ACCENT_5
 arrow1.text = "Pijl111"
 
-arrow1.rotation = 90
+arrow1.rotation = 180
 
 #pr1.save('GreatPresentation.pptx')
 #pr1.save('GreatPresentation_Part2.pptx')
