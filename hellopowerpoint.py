@@ -3,6 +3,20 @@ from pptx.util import Inches
 from pptx.enum.shapes import MSO_SHAPE
 from pptx.enum.dml import MSO_THEME_COLOR
 
+
+def add_bullet_slide(pr, title, bullet_points):
+    """Add a bullet slide to *pr* with *title* and bullet text."""
+    slide_layout = pr.slide_layouts[1]
+    slide = pr.slides.add_slide(slide_layout)
+    slide.shapes.title.text = title
+    body_shape = slide.shapes.placeholders[1]
+    if bullet_points:
+        body_shape.text = bullet_points[0]
+        tf = body_shape.text_frame
+        for text in bullet_points[1:]:
+            p = tf.add_paragraph()
+            p.text = text
+    return slide
 pr1 = Presentation()
 
 slide1_layout = pr1.slide_layouts[0]
@@ -15,32 +29,7 @@ subtitle1 = slide1.placeholders[1]
 title1.text= "ANALYSTRISING"
 subtitle1.text = "Subscribe to my channel"
 
-slide2_layout = pr1.slide_layouts[1]
-slide2 = pr1.slides.add_slide(slide2_layout)
-
-title2 = slide2.shapes.title
-title2.text = "Now For Some Bullet Points"
-
-bullet_point_box = slide2.shapes
-bullet_points_lvl1 = bullet_point_box.placeholders[1]
-bullet_points_lvl1.text ="Subscribe"
-
-shapes = slide1.shapes
-print(shapes)
-
-
-
-bullet_points_lvl2 = bullet_points_lvl1.text_frame.add_paragraph()
-bullet_points_lvl2.text ="to"
-bullet_points_lvl2.level = 1
-
-bullet_points_lvl3 = bullet_points_lvl1.text_frame.add_paragraph()
-bullet_points_lvl3.text ="my"
-bullet_points_lvl3.level = 2
-
-bullet_points_lvl3 = bullet_points_lvl1.text_frame.add_paragraph()
-bullet_points_lvl3.text ="Channel!"
-bullet_points_lvl3.level = 3
+add_bullet_slide(pr1, "Now For Some Bullet Points", ["Subscribe", "to", "my", "Channel!"])
 
 #Add Slide 3
 slide3_layout = pr1.slide_layouts[5]
